@@ -3,6 +3,7 @@ from tkinter import messagebox, filedialog
 from Crypto.PublicKey import RSA
 from Crypto.Cipher import PKCS1_OAEP
 import base64
+from datetime import datetime
 
 # Function to open the encryption type selection window
 def open_encrypt_algorithm_selection():
@@ -41,12 +42,12 @@ def open_rsa_encryption_window(rsa_engine_window, engine_type):
     
     rsa_window = tk.Toplevel(root)
     rsa_window.title("RSA Encryption")
-    rsa_window.geometry("400x300")
+    rsa_window.geometry("800x600")
     
     label = tk.Label(rsa_window, text="Enter text to encrypt:")
     label.pack(pady=20)
     
-    text_entry = tk.Entry(rsa_window, width=40)
+    text_entry = tk.Entry(rsa_window, width=100)
     text_entry.pack(pady=10)
     
     encrypt_button = tk.Button(rsa_window, text="Encrypt", command=lambda: encrypt_text(text_entry.get(), rsa_window, engine_type))
@@ -62,7 +63,10 @@ def open_rsa_encryption_window(rsa_engine_window, engine_type):
 # Function to encrypt text using the selected RSA engine
 def encrypt_text(text, rsa_window, engine_type):
     # Generate RSA keys (private and public)
-    key = RSA.generate(2048)
+    bit_depth = 4096  # adjust this variable to change RSA key size
+    print(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} - Generating RSA keys... Bit depth: {bit_depth}")
+    key = RSA.generate(bit_depth)
+    print(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} - RSA keys generated.")
     private_key = key.export_key()
     public_key = key.publickey().export_key()
     
