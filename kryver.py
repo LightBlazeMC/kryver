@@ -33,8 +33,8 @@ def open_rsa_engine_selection_window(encrypt_algorithm_window):
     pycryptodome_button = tk.Button(rsa_engine_window, text="PyCryptodome RSA", command=lambda: open_rsa_encryption_window(rsa_engine_window, "pycryptodome"))
     pycryptodome_button.pack(pady=10)
 
-    kryver_button = tk.Button(rsa_engine_window, text="kryverRSA", command=lambda: messagebox.showwarning("kryverRSA Engine Error", "kryverRSA is not yet supported."))
-    kryver_button.pack(pady=10)
+    #kryver_button = tk.Button(rsa_engine_window, text="kryverRSA", command=lambda: messagebox.showwarning("kryverRSA Engine Error", "kryverRSA is not yet supported."))
+    #kryver_button.pack(pady=10)
 
 # Function to open the RSA encryption window based on the selected engine
 def open_rsa_encryption_window(rsa_engine_window, engine_type):
@@ -71,8 +71,8 @@ def encrypt_text(text, rsa_window, engine_type):
     public_key = key.publickey().export_key()
     
     # Store the keys in the root window (so they are accessible to other windows)
-    root.private_key = private_key
-    root.public_key = public_key
+    #root.private_key = private_key
+    #root.public_key = public_key
     
     # Encrypt the text based on the selected engine
     if engine_type == "pycryptodome":
@@ -95,13 +95,6 @@ def encrypt_text(text, rsa_window, engine_type):
 def encrypt_with_pycryptodome(text, public_key):
     cipher = PKCS1_OAEP.new(RSA.import_key(public_key))
     encrypted_text = cipher.encrypt(text.encode())
-    return encrypted_text
-
-# Function to encrypt text using kryverRSA (placeholder for custom implementation)
-def encrypt_with_kryverrsa(text, public_key):
-    # Placeholder for kryverRSA encryption logic (replace with actual kryverRSA code)
-    print("Encrypting with kryverRSA (this is a placeholder function).")
-    encrypted_text = text.encode()  # Dummy encryption (replace with real encryption)
     return encrypted_text
 
 # Function to save the private and public keys to files
@@ -201,6 +194,10 @@ print("[kryver] Starting main UI process...")
 root = tk.Tk()
 root.title("kryver - Main")
 root.geometry("400x300")
+# Load the image: png/gif tested
+icon = tk.PhotoImage(file='data/icon.png')
+# Set the window icon
+root.iconphoto(True, icon)
 
 # Display a label in the main window
 label = tk.Label(root, text="kryver 1.0 TEST")
