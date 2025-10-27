@@ -195,9 +195,19 @@ root = tk.Tk()
 root.title("kryver - Main")
 root.geometry("400x300")
 # Load the image: png/gif tested
-icon = tk.PhotoImage(file='data/icon.png')
+#icon = tk.PhotoImage(file='data/icon.png')
 # Set the window icon
-root.iconphoto(True, icon)
+#root.iconphoto(True, icon)
+import os, sys
+try:
+    base_path = getattr(sys, '_MEIPASS', os.path.dirname(__file__))
+    icon_path = os.path.join(base_path, 'data', 'icon.png')
+    if os.path.exists(icon_path):
+        icon = tk.PhotoImage(file=icon_path)
+        root.iconphoto(True, icon)
+except Exception:
+    # fail silently if icon not available (dev/build)
+    pass
 
 # Display a label in the main window
 label = tk.Label(root, text="kryver 1.0 TEST")

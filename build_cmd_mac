@@ -1,0 +1,1 @@
+pyinstaller --onefile --add-data "data/icon.png:data" kryver.py
